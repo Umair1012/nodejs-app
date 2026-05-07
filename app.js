@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 
 const PORT = 3000;
-
 const VM_NAME = process.env.VM_NAME || "UNKNOWN";
 
 app.get("/", (req, res) => {
@@ -23,6 +22,7 @@ app.get("/api/orders", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+// ✅ FIX HERE
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Running on ${PORT}`);
 });

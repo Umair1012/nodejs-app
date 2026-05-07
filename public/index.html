@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mise VM Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            margin: 20px auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            background: #38bdf8;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0ea5e9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🚀 Mise VM Dashboard</h1>
+    <h3 id="vm">Loading VM...</h3>
+
+    <div class="card">
+        <h2>Users</h2>
+        <button onclick="loadUsers()">Load Users</button>
+        <ul id="users"></ul>
+    </div>
+
+    <div class="card">
+        <h2>Orders</h2>
+        <button onclick="loadOrders()">Load Orders</button>
+        <ul id="orders"></ul>
+    </div>
+
+    <script>
+        async function loadUsers() {
+            const res = await fetch('/api/users');
+            const data = await res.json();
+
+            document.getElementById("vm").innerText = "VM: " + data.vm;
+
+            document.getElementById("users").innerHTML =
+                data.data.map(u => `<li>${u}</li>`).join("");
+        }
+
+        async function loadOrders() {
+            const res = await fetch('/api/orders');
+            const data = await res.json();
+
+            document.getElementById("orders").innerHTML =
+                data.data.map(o => `<li>${o}</li>`).join("");
+        }
+
+        // Auto-load users on page load
+        loadUsers();
+    </script>
+
+</body>
+</html>
